@@ -3,58 +3,49 @@ const fs = require("fs");
 const botconfig = require("../botconfig.json");
 
 
-module.exports.run = async (bot, message, args) => {
-    const embed = {
-        "title": `Préfix du bot => ${botconfig.prefix}`,
-        "description": "",
-        "url": "",
-        "color": 2734693,
-        "timestamp": new Date(),
-        "footer": {
-          "icon_url": "https://cdn.discordapp.com/avatars/193758355708182529/2d66b3cce534febf468ddf8463b10973.png",
-          "text": `Made by ${botconfig.author} | Version ${botconfig.version}`
-        },
-        "thumbnail": {
-          "url": "https://cdn0.iconfinder.com/data/icons/website-design-4/467/Search_icon-128.png"
-        },
-        "author": {
-          "name": "iRobot > Aide",
-          "url": "http://idrunk.byethost32.com/",
-          "icon_url": "https://cdn.discordapp.com/avatars/193758355708182529/2d66b3cce534febf468ddf8463b10973.png"
-        },
-        "fields": [
-          {
-            "name": `:video_game: ${botconfig.prefix}jeux`,
-            "value": "Liste des jeux",
-            "inline": true
-          },
-          {
-            "name": `:space_invader: ${botconfig.prefix}fun`,
-            "value": "CMD fun",
-            "inline": true
-          },
-          {
-            "name": `:beginner: ${botconfig.prefix}utilitaire`,
-            "value": "CMD utilitaire",
-            "inline": true
-          },
-          {
-            "name": `:headphones: ${botconfig.prefix}musique`,
-            "value": "CMD musique",
-            "inline": true
-          },
-          {
-            "name": `:beginner: ${botconfig.prefix}staff`,
-            "value": "CMD staff",
-            "inline": true
-          },
-        ]
-      };
-      message.channel.send({ embed });
-    console.log(`[CMD] ${botconfig.prefix}aide a été éffectué.`)
+module.exports.run = (client, message, params) => {
+  if (!params[0]) {
+    const commandNames = Array.from(client.commands.keys());
+    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-}
+  const msg = new Discord.RichEmbed()
+
+  .setColor('RANDOM')
+  .setAuthor('Liste des commandes :')
+  .addField(':beginner:  Staff', `${botconfig.prefix}clear\n${botconfig.prefix}tempmute\n${botconfig.prefix}kick\n${botconfig.prefix}tempban\n${botconfig.prefix}ban\n${botconfig.prefix}warn`, true )
+  //.addField(':space_invader: Fun', `${botconfig.prefix}`, true)
+  .addField(':pager: Utilitaire',`${botconfig.prefix}serveur\n${botconfig.prefix}informations\n${botconfig.prefix}help`, true)
+  .addField(':gear: Commandes en DEV',`${botconfig.prefix}profile`, true)
+  .setDescription(`Utilisez ${botconfig.prefix}help <commandes> pour plus d'informations !`)
+  .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`)
+  .setTimestamp()
+
+              message.channel.send(msg);
+
+  } else {
+    let command = params[0];
+    if (client.commands.has(command)) {
+      command = client.commands.get(command);
+
+      const msg2 = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setTitle(`**Commande :** ${command.help.name}`)
+      .setDescription(`**Description :** ${command.help.description}\n**Usage :** ${botconfig.prefix}${command.help.usage}\n`)
+      .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`)
+      .setTimestamp()
+  message.channel.send(msg2)
+    }
+      
+  }};
+
+module.exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  permLevel: 0
+};
 
 module.exports.help = {
-    name:"aide"
-}
+  name: 'aide',
+  description: 'Liste des commandes du bot !',
+  usage: 'aide [commande]',
+};
