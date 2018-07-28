@@ -19,12 +19,12 @@ bot.commands = new Discord.Collection();
       let props = require(`./commandes/${f}`);
       console.log(`[CMD] ${f}`);
       bot.commands.set(props.help.name, props);
+      console.log(`============ Informations ============`)
     });
   
   });
 
 bot.on("ready", async () => {
-    console.log(`============ Informations ============`)
     console.log(`Pseudo du BOT   => ${bot.user.tag}`)
     console.log(`Prefix actuelle => ` + botconfig.prefix);
     console.log(`Auteur          => ${botconfig.author}`);
