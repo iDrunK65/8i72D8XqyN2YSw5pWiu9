@@ -19,8 +19,8 @@ bot.commands = new Discord.Collection();
       let props = require(`./commandes/${f}`);
       console.log(`[CMD] ${f}`);
       bot.commands.set(props.help.name, props);
-      console.log(`============ Informations ============`)
     });
+    console.log(`============ Informations ============`)
   
   });
 
