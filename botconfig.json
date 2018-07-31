@@ -1,5 +1,6 @@
 {
     "prefix": "*",
     "author": "iDrunK#4166",
-    "version": "1.0.3"
+    "version": "1.0.4",
+    "library": "Discord.js"
 }
