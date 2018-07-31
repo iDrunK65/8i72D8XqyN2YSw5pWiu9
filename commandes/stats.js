@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
     .setTitle("Information du bot")
     .setColor("#15f153")
     .addField(":space_invader: Nom du bot", bot.user.username, true)
-    .addField(":id: ID", bot.user.id, true)
+    .addField(":id: ID1", bot.user.id, true)
     .addField(":bust_in_silhouette: Auteur", `${botconfig.author}`, true)
     .addField(":desktop: Serveurs", `${bot.guilds.size} serveurs`, true)
     .addField(":dividers: Channel", `${bot.channels.size} channels`, true)
