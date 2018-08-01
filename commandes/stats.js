@@ -3,15 +3,15 @@ const botconfig = require("../botconfig.json");
 const bot = new Discord.Client({disableEveryone: true});
 
 module.exports.run = async (bot, message, args) => {
-  let totalSeconds = (bot.uptime/1000);
-   let days = Math.floor(totalSeconds / 86400);
-   totalSeconds %= 86400;
-   let hours = Math.floor(totalSeconds / 3600);
-   totalSeconds %= 3600;
-   let minutes = Math.floor(totalSeconds / 60);
-   let seconds = Math.round(totalSeconds % 60);
-   let uptime = `${days}D ${hours}H ${minutes}M ${seconds}S`;
-   let botembed = new Discord.RichEmbed()
+  var s = (Math.round(bot.uptime / 1000) % 60)
+  var m = (Math.round(bot.uptime / (1000 * 60)) % 60)
+  var h = (Math.round(bot.uptime / (1000 * 60 * 60)))
+  var days = (Math.round(bot.uptime / (1000 * 60 * 60 * 24)));
+  h = (h < 10)? "0" + h : h;
+  m = (m < 10) ? "0" + m : m;
+  s = (s < 10) ? "0" + s : s;
+  let uptime = `${days}D ${h}H ${m}M ${s}S`;
+  let botembed = new Discord.RichEmbed()
     .setTitle("Information du bot")
     .setColor("#15f153")
     .addField(":space_invader: Nom du bot", bot.user.username, true)
