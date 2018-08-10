@@ -37,7 +37,7 @@ if(!MReason) return message.reply("Vous n'avez pas spécifié de motif ! (*tempb
   //end 
 
   let muteEmbed = new Discord.RichEmbed()
-    .setTitle(`~ Mute ~`)
+    .setTitle(`~ Mute Temporaire ~`)
     .setColor("#ff0000")
     .addField("Joueur", `@${MUser}`, true)
     .addField("Staff", `<@${message.author.id}>`, true)
