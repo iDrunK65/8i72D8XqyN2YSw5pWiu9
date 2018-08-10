@@ -52,11 +52,11 @@ if(!MReason) return message.reply("Vous n'avez pas spécifié de motif ! (*tempb
     console.log(`[STAFF] ${MUser.user.tag} a été mute de ${message.guild.name} par ${message.author.tag} pour la raison suivante : ${MReason} (${ms(ms(mutetime))}).`)
 
   setTimeout(function(){
-    let unbanEmbed = new Discord.RichEmbed()
-    .setTitle(`~ Unban ~`)
+    let unMuteEmbed = new Discord.RichEmbed()
+    .setTitle(`~ UnMute ~`)
     .setColor("#008000")
     .addField("Pseudo", `${MUser}`, true)
-    .addField("Staff", `@${bot.user.tag}`, true)
+    .addField("Staff", `${bot.user.tag}`, true)
     .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`,);
 
     MUser.removeRole(muterole.id);
