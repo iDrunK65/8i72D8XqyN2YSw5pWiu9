@@ -12,7 +12,7 @@ module.exports.run = (client, message, params) => {
 
   .setColor('RANDOM')
   .setAuthor('Liste des commandes :')
-  .addField(':beginner:  Staff', `${botconfig.prefix}clear\n${botconfig.prefix}tempmute\n${botconfig.prefix}kick\n${botconfig.prefix}tempban\n${botconfig.prefix}ban\n${botconfig.prefix}warn`, true )
+  .addField(':beginner:  Staff', `${botconfig.prefix}purge\n${botconfig.prefix}tempmute\n${botconfig.prefix}kick\n${botconfig.prefix}tempban\n${botconfig.prefix}ban\n${botconfig.prefix}warn`, true )
   //.addField(':space_invader: Fun', `${botconfig.prefix}`, true)
   .addField(':pager: Utilitaire',`${botconfig.prefix}serveur\n${botconfig.prefix}informations\n${botconfig.prefix}help`, true)
   .addField(':gear: Commandes en DEV',`${botconfig.prefix}profile`, true)
