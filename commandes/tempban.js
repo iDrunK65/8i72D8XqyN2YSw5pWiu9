@@ -46,5 +46,7 @@ setTimeout(function(){
 }
 
 module.exports.help = {
-  name:"tempban"
-}
+    name: 'tempban',
+    description: 'Permet de bannir temporairemment une personne du discord.',
+    usage: 'tempban @pseudo#xxx 1s/m/h/d motif',
+};
