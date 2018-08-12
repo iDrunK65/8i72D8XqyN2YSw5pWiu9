@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const botconfig = require("../botconfig.json");
-const bot = new Discord.Client({disableEveryone: true});
 const ms = require("ms");
 
 module.exports.run = async (bot, message, args) => {
@@ -27,7 +26,8 @@ if(!MReason) return message.reply("Vous n'avez pas spécifié de motif ! (*tempb
       message.guild.channels.forEach(async (channel, id) => {
         await channel.overwritePermissions(muterole, {
           SEND_MESSAGES: false,
-          ADD_REACTIONS: false
+          ADD_REACTIONS: false,
+          VIEW_CHANNEL: false
         });
       });
     }catch(e){
@@ -39,11 +39,12 @@ if(!MReason) return message.reply("Vous n'avez pas spécifié de motif ! (*tempb
   let muteEmbed = new Discord.RichEmbed()
     .setTitle(`~ Mute Temporaire ~`)
     .setColor("#ff0000")
-    .addField("Joueur", `@${MUser}`, true)
+    .addField("Joueur", `${MUser}`, true)
     .addField("Staff", `<@${message.author.id}>`, true)
-    .addField("Durée", `${ms(ms(mutetime))}`)
+    .addField("Durée", `${ms(ms(mutetime))}`, true)
     .addField("Motif", MReason)
-    .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`,);
+    .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`)
+    .setTimestamp();
 
     let muteChannel = message.guild.channels.find(`name`, "📜▕-passage-discord");
     if(!muteChannel) return message.channel.send("Je ne trouve pas le channel !");
@@ -52,15 +53,16 @@ if(!MReason) return message.reply("Vous n'avez pas spécifié de motif ! (*tempb
     console.log(`[STAFF] ${MUser.user.tag} a été mute de ${message.guild.name} par ${message.author.tag} pour la raison suivante : ${MReason} (${ms(ms(mutetime))}).`)
 
   setTimeout(function(){
-    let unMuteEmbed = new Discord.RichEmbed()
+    let unmuteEmbed = new Discord.RichEmbed()
     .setTitle(`~ UnMute ~`)
     .setColor("#008000")
     .addField("Pseudo", `${MUser}`, true)
-    .addField("Staff", `${bot.user.tag}`, true)
-    .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`,);
+    .addField("Staff", `@${bot.user.tag}`, true)
+    .setFooter(`Made by ${botconfig.author} | Version ${botconfig.version}`)
+    .setTimestamp();
 
     MUser.removeRole(muterole.id);
-    muteChannel.send(unbanEmbed)
+    muteChannel.send(unmuteEmbed)
     console.log(`[STAFF] ${MUser.user.tag} n'est plus mute de ${message.guild.name}`)
   }, ms(mutetime));
 
@@ -68,6 +70,14 @@ if(!MReason) return message.reply("Vous n'avez pas spécifié de motif ! (*tempb
 //end of module
 }
 
+module.exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  permLevel: 0
+};
+
 module.exports.help = {
-  name: "tempmute"
-}
+  name: 'tempmute',
+  description: 'Permet de mute temporairemment une personne du discord.',
+  usage: 'tempmute @pseudo#xxx 1s/m/h/d motif',
+};
